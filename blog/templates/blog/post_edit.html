@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load crispy_forms_tags %}
     {% block content %}
         <h1>Nuevo Post</h1>
         <form method="POST" class="post-form">{% csrf_token %}
