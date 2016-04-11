@@ -2,14 +2,29 @@
 
     {% block content %}
         <div class="post">
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-            {% if post.published_date %}
 
-                <div class="date">
-                    {{ post.published_date }}
-                </div>
-            {% endif %}
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.text|linebreaks }}</p>
+            <div class="row">
+                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                 <h1>POSTS</h1>
+                    {% if post.published_date %}
+                        <div class="date">
+                            {{ post.published_date }}
+                        </div>
+                    {% endif %}
+                    <h1>{{ post.title }}</h1>
+                    <p>{{ post.text|linebreaks }}</p>
+            </div>
+            <div class="row">
+            <h1>Comentarios</h1>
+                {% for comment in comments %}
+                    <p>{{ comment.created_date }}</p>
+                    <p>{{ comment.text }}</p>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <form method="POST" class="comment-form">{% csrf_token %}
+                    {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button></form></form>
+            </div>
         </div>
     {% endblock %}
