@@ -1,1 +1,2 @@
-window.onload(alert("Bienvenido a mi blog!!"));
+
+window.onload(alert("Bienvenido/a al Post Django Girls."));
