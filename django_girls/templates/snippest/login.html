@@ -1,13 +1,12 @@
 
 	{% load crispy_forms_tags %}
-
+		{% if form.errors %}
+            <p class="navbar-form navbar-left">Tu usuario y contraseña son incorrectos, intentelo de nuevo.</p>
+        
+        {% endif %}         
 	
 
-		{% if form.errors %}
-            <p>Your username and password didn't match. Please try again.</p>
-        
-                            
-        {% endif %}
+		
 
 		{% if next %}
 		    {% if user.is_authenticated %}
@@ -26,18 +25,20 @@
 		<input type="submit" value="login" />
 		<input type="hidden" name="next" value="{{ next }}" />
 		</form>-->
-		<form class="navbar-form navbar-right" role="search" method="post" action="{% url 'django.contrib.auth.views.login'%}">
-			<div class="form-group">
-	                <input type="text" placeholder="Username" class="form-control" name="username">
-	            </div>
-	              <div class="form-group">
-	                <input type="password" placeholder="Password" class="form-control" name="password">
-	              </div>
-	            {% csrf_token %}
-	          <button type="submit" class="btn btn-success">Sign in</button>
-	          <input type="hidden" name="next" value="{{ next }}" />
-	          {# Assumes you setup the password_reset view in your URLconf #}
-			<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-        </form>
+			<form class="navbar-form navbar-right" role="search" method="post" action="{% url 'django.contrib.auth.views.login'%}">
+				<div class="form-group">
+		                <input type="text" placeholder="Username" class="form-control" name="username">
+		            </div>
+		              <div class="form-group">
+		                <input type="password" placeholder="Password" class="form-control" name="password">
+		              </div>
+		            {% csrf_token %}
+		          <button type="submit" class="btn btn-success">Sign in</button>
+		          
+		          {# Assumes you setup the password_reset view in your URLconf #}
+				<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+	        </form>
+
+        
 
 	
