@@ -54,11 +54,13 @@ h1, h2, h3, h4 {
     color: #000000;
 }
 .p{
-     clear: both;
+    float: right;
 }
 .a{
     background-color: lightblue;
     padding: 4px;
     border-radius: 4px;
+    margin-left: 1%;
+    margin-top: 1%;
 
 }
