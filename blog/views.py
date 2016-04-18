@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
@@ -17,6 +17,7 @@ from django.views.generic import ListView, DetailView, CreateView
 class PostListView(ListView):
 
     context_object_name = 'posts'
+
     def get_queryset(self):
         queryset =  Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
         return queryset
@@ -36,8 +37,8 @@ class PostCreate(CreateView):
         post.author = self.request.user
         return super(PostCreate, self).form_valid(form)
 
-    success_url = "/"
-
+    def get_success_url(self):
+        return reverse('post_list')
 
 
 # def post_detail(request, pk): 
