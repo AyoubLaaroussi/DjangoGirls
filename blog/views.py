@@ -38,11 +38,6 @@ class PostCreate(CreateView):
 
     success_url = "/"
 
-        
-
-
-
-
 
 
 # def post_detail(request, pk): 
