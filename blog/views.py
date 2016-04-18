@@ -37,7 +37,7 @@ class PostDetail(DetailView):
         return context
         
     def post(self, request, *args, **kwargs):
-        import ipdb; ipdb.set_trace()
+        #import ipdb; ipdb.set_trace()
         if request.user.is_authenticated():
             form = CommentForm(request.POST)
             post = self.get_object()
