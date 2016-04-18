@@ -38,7 +38,7 @@ class PostCreate(CreateView):
         return super(PostCreate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('post_list')
+        return reverse('post_detail')
 
 
 # def post_detail(request, pk): 
