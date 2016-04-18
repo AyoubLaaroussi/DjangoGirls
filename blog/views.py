@@ -13,6 +13,12 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 #    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     #import ipdb; ipdb.set_trace()
 #    return render(request, 'blog/post_list.html', {'posts': posts})
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view, login_url='login')
+
 
 class PostListView(ListView):
 
@@ -48,11 +54,13 @@ class PostEdit(UpdateView):
     def get_success_url(self):
         return reverse('post_detail',kwargs={'pk':self.object.pk})
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
 
     def get_success_url(self):
         return reverse('post_list')
+
+
 
 
 # def post_detail(request, pk): 
