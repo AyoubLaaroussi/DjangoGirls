@@ -6,7 +6,7 @@ from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 #def post_list(request):
@@ -47,6 +47,12 @@ class PostEdit(UpdateView):
 
     def get_success_url(self):
         return reverse('post_detail',kwargs={'pk':self.object.pk})
+
+class PostDelete(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        return reverse('post_list')
 
 
 # def post_detail(request, pk): 
@@ -100,8 +106,8 @@ class PostEdit(UpdateView):
 #         form = PostForm(instance=post)
 #     return render(request, 'blog/post_edit.html', {'form': form, 'post': post})
 
-@login_required(login_url='login')
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post.delete()
-    return redirect('post_list')
+# @login_required(login_url='login')
+# def post_delete(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     post.delete()
+#     return redirect('post_list')
