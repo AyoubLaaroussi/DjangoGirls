@@ -12,6 +12,10 @@
     <p>{{ comment.created_date }}</p>
     <p>{{ comment.text }}</p>
 </div>
+<div>
+	<a href="{% url 'comment_like' pk=comment.pk %}" class="glyphicon-thumbs-up"></a>{{ comment.likes }}
+	<a href="{% url 'comment_dislike' pk=comment.pk %}" class="glyphicon glyphicon-thumbs-down"></a>{{ comment.dislikes }}
+</div>
 {% endfor %}
 
     Status API Training Shop Blog About 

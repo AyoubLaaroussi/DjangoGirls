@@ -8,10 +8,7 @@ from django.contrib.auth import authenticate
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
-#def post_list(request):
-#    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    #import ipdb; ipdb.set_trace()
-#    return render(request, 'blog/post_list.html', {'posts': posts})
+
 class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
@@ -80,8 +77,22 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('post_list')
 
+def comment_like(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.like()
+    return redirect('post_detail', pk=comment.post.pk)
+
+def comment_dislike(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.dislike()
+    return redirect('post_detail', pk=comment.post.pk)
 
 
+
+#def post_list(request):
+#    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    #import ipdb; ipdb.set_trace()
+#    return render(request, 'blog/post_list.html', {'posts': posts})
 
 # def post_detail(request, pk): 
 #     post = get_object_or_404(Post, pk=pk) 
