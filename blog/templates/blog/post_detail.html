@@ -26,9 +26,13 @@
                     <p>{{ comment.created_date }}</p>
                     <p>{{ comment.text }}</p>
                     <div>
-    <a href="{% url 'comment_like' pk=comment.pk %}" class="glyphicon glyphicon-thumbs-up"></a>{{ comment.likes }}
-    <a href="{% url 'comment_dislike' pk=comment.pk %}" class="glyphicon glyphicon-thumbs-down"></a>{{ comment.dislikes }}
-</div>
+                        <a id-likes="{{ comment.pk }}" class="like glyphicon glyphicon-thumbs-up " href="{% url 'comment_like' pk=comment.pk %}" ></a>
+                        <p id='likecontador_{{ comment.pk }}'>{{ comment.likes }}</p>
+
+
+                        <a id-dislikes="{{ comment.pk }}" class="dislike glyphicon glyphicon-thumbs-down " href="#"  ></a>
+                        <p id='dislikecontador_{{ comment.pk }}'>{{ comment.dislikes }}</p>
+                    </div>
                 {% endfor %}
             </div>
             <div class="row">

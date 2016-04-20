@@ -6,7 +6,11 @@ from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from blog.models import Post
+from django.http import HttpResponse
+import json
 
 
 class LoginRequiredMixin(object):
@@ -78,14 +82,44 @@ class PostDelete(LoginRequiredMixin, DeleteView):
         return reverse('post_list')
 
 def comment_like(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+    # comment = get_object_or_404(Comment, pk=pk)
+    # comment.like()
+    # return redirect('post_detail', pk=comment.post.pk)
+    
+
+    comment = get_object_or_404(Comment,pk=pk)
+
     comment.like()
-    return redirect('post_detail', pk=comment.post.pk)
+
+    response_data = {
+        'likes': comment.likes,
+        'comment_pk': comment.pk
+    }
+
+    return HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
 
 def comment_dislike(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+    # comment = get_object_or_404(Comment, pk=pk)
+    # comment.dislike()
+    # return redirect('post_detail', pk=comment.post.pk)
+
+    comment = get_object_or_404(Comment,pk= pk)
+
     comment.dislike()
-    return redirect('post_detail', pk=comment.post.pk)
+
+    response_data = {}
+
+    response_data['comment_pk'] = comment.pk
+
+    response_data['dislikes'] = comment.dislikes
+
+    return HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
 
 
 
